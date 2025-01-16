@@ -1,0 +1,17 @@
+# Docker volumes
+kafka_data/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# IDE files
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
