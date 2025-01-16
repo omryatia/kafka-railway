@@ -1,4 +1,4 @@
-FROM docker:20.10.16-dind
+FROM docker:24.0.7-dind
 
 # Install required packages
 RUN apk add --no-cache \
