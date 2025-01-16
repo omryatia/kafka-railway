@@ -8,7 +8,7 @@ COPY --from=kafka-ui /kafka-ui-api.jar /kafka-ui/kafka-ui-api.jar
 
 # Install OpenJDK for Kafka UI
 RUN yum update -y && \
-    yum install -y java-11-openjdk-headless && \
+    yum install -y java-11-openjdk-headless curl && \
     yum clean all
 
 # Create directories
@@ -41,8 +41,6 @@ ENV KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
 # Kafka UI Configuration
 ENV KAFKA_CLUSTERS_0_NAME=local
 ENV KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=localhost:29092
-
-VOLUME ["/opt/kafka/data", "/opt/kafka/logs"]
 
 HEALTHCHECK --interval=5s --timeout=10s --retries=5 \
     CMD /usr/local/bin/healthcheck.sh
