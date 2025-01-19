@@ -4,7 +4,6 @@
       "name": "kafka",
       "dockerfilePath": "kafka/Dockerfile",
       "envVars": {
-        "KAFKA_BROKER_ID": "1",
         "KAFKA_LOG_DIRS": "/var/lib/kafka/data"
       }
     },
