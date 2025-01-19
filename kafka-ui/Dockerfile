@@ -1,7 +1,4 @@
 FROM provectuslabs/kafka-ui:latest
 
-ENV KAFKA_CLUSTERS_0_NAME=railway-kafka \
-    KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=${KAFKA_URL} \
-    SERVER_PORT=8080
-
-EXPOSE 8080
+# Copy custom configuration if required
+COPY config.yml /app/config.yml
