@@ -1,57 +1,65 @@
-# Kafka Railway Deployment
+# Kafka Railway Template
 
-Apache Kafka deployment configured for Railway.app platform with KRaft (no Zookeeper) and Kafka UI.
+Ready-to-deploy Kafka template for Railway.app with Kafka UI.
 
 ## Features
 
-- Single-node Kafka broker with KRaft (no Zookeeper needed)
-- Kafka UI for monitoring and management
-- Configured for Railway.app deployment
-- Health checks for both Kafka and UI
+- Apache Kafka with KRaft (no Zookeeper needed)
+- Kafka UI for management and monitoring
+- Configurable through environment variables
+- Health checks for both services
+- Proper service dependencies
 
-## Deployment
+## Quick Start
 
-1. Create new Railway project:
-```bash
-railway init
-```
+1. Click "Deploy to Railway" button
+2. Set required environment variables
+3. Deploy!
 
-2. Set environment variables in Railway dashboard:
-```
-PORT=9092               # Kafka broker port
-UI_PORT=8080           # Kafka UI port
-RAILWAY_STATIC_URL     # Provided by Railway
-```
+## Environment Variables
 
-3. Deploy to Railway:
-```bash
-railway up
-```
+### Required:
+- `RAILWAY_PUBLIC_DOMAIN`: Your Railway domain (provided by Railway)
 
-## Connecting to Kafka
-
-After deployment, your Kafka broker will be available at:
-- Bootstrap server: `${RAILWAY_STATIC_URL}:9092`
-- Kafka UI: `https://<your-railway-domain>:8080`
-
-## Configuration
-
-The Kafka broker is configured with:
-- KRaft for metadata management (no Zookeeper)
-- Single node setup
-- Auto topic creation enabled
-- Replication factor of 1
-- Health checks for both Kafka and UI
+### Optional:
+- `KAFKA_PORT`: Kafka port (default: 9092)
+- `UI_PORT`: Kafka UI port (default: 8080)
+- `CLUSTER_NAME`: Kafka cluster name (default: local)
 
 ## Local Development
 
-To run locally:
-
+1. Copy environment file:
 ```bash
-cd docker
+cp .env.example .env
+```
+
+2. Start services:
+```bash
 docker-compose up -d
 ```
 
-Access:
-- Kafka broker at `localhost:9092`
-- Kafka UI at `http://localhost:8080`
+3. Access:
+- Kafka: localhost:9092
+- Kafka UI: http://localhost:8080
+
+## Health Checks
+
+Both services include health checks:
+- Kafka: Checks if topics can be listed
+- Kafka UI: Checks if health endpoint responds
+
+## Connection Details
+
+### Internal (Container-to-Container)
+- Bootstrap Server: `kafka:29092`
+
+### External
+- Bootstrap Server: `${RAILWAY_PUBLIC_DOMAIN}:9092`
+- Kafka UI: `https://<your-railway-domain>:8080`
+
+## Architecture
+
+- Uses KRaft instead of Zookeeper
+- Separate containers for Kafka and UI
+- Internal and external listeners
+- Proper startup order with health checks
