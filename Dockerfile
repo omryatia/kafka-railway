@@ -9,6 +9,13 @@ RUN apk add --no-cache \
 COPY . /app/
 WORKDIR /app
 
+# Create startup script
+RUN echo '#!/bin/sh' > /app/start.sh && \
+    echo 'dockerd &' >> /app/start.sh && \
+    echo 'sleep 5' >> /app/start.sh && \
+    echo 'docker-compose up' >> /app/start.sh && \
+    chmod +x /app/start.sh
+
 EXPOSE 9092 8080
 
-CMD ["docker-compose", "up"]
+CMD ["/app/start.sh"]
