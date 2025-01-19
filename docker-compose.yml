@@ -1,9 +1,7 @@
 version: '3.8'
 services:
   kafka:
-    build:
-      context: ./kafka
-      dockerfile: Dockerfile
+    build: kafka
     ports:
       - "${KAFKA_PORT:-9092}:9092"
     environment:
@@ -17,9 +15,7 @@ services:
       start_period: 15s
 
   kafka-ui:
-    build:
-      context: ./kafka-ui
-      dockerfile: Dockerfile
+    build: kafka-ui
     ports:
       - "${UI_PORT:-8080}:8080"
     environment:
