@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Generate a random CLUSTER_ID if not set
+if [ -z "$CLUSTER_ID" ]; then
+    export CLUSTER_ID=$(kafka-storage random-uuid)
+    echo "Generated CLUSTER_ID: $CLUSTER_ID"
+fi
+
+# Format storage directory
+kafka-storage format --config /etc/kafka/kraft/server.properties --cluster-id $CLUSTER_ID
+
 # Start Kafka
 echo "Starting Kafka..."
 /etc/confluent/docker/run &
