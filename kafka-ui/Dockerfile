@@ -1,3 +1,3 @@
 FROM provectuslabs/kafka-ui:latest
 
-EXPORT 8080
+EXPOSE 8080
