@@ -1,7 +1,10 @@
 FROM confluentinc/cp-kafka:7.8.0
 
-# Copy server configuration
+# Copy server properties for Kafka Kraft mode
 COPY server.properties /etc/kafka/server.properties
 
-# Expose necessary ports
+# Expose Kafka port
 EXPOSE 9092
+
+# Start Kafka with custom configuration
+CMD ["bash", "-c", "/etc/confluent/docker/run"]
