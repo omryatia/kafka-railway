@@ -1,4 +1,4 @@
-FROM confluentinc/cp-kafka:7.5.1
+FROM confluentinc/cp-kafka:latest
 
 USER root
 
@@ -9,7 +9,7 @@ RUN microdnf update -y && \
 
 # Set up Kafka UI
 RUN mkdir -p /kafka-ui
-ADD https://github.com/provectus/kafka-ui/releases/download/v0.7.1/kafka-ui-api-v0.7.1.jar /kafka-ui/kafka-ui-api.jar
+ADD https://github.com/provectus/kafka-ui/releases/download/v0.7.2/kafka-ui-api-v0.7.2.jar /kafka-ui/kafka-ui-api.jar
 
 # Create startup and health check scripts
 COPY scripts/start.sh /usr/local/bin/
@@ -30,7 +30,8 @@ ENV KAFKA_NODE_ID=1 \
     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1 \
     KAFKA_AUTO_CREATE_TOPICS_ENABLE=true \
     KAFKA_CLUSTERS_0_NAME=local \
-    KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=localhost:29092
+    KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=localhost:29092 \
+    CLUSTER_ID=LX8EOhJPQCO1T7rtRqDyXA
 
 EXPOSE 9092 8080
 
